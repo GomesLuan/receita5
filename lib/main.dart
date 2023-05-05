@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 
 class DataService{
-  final ValueNotifier<List> tableStateNotifier = ValueNotifier([]);
+  final ValueNotifier<Map> tableStateNotifier = ValueNotifier({"jsonObjects" : [], "propertyNames" : [""], "collumnNames" : [""]});
 
   void carregar(index){
     List<Function> loads = [carregarCafes, carregarCervejas, carregarNacoes];
@@ -10,63 +10,75 @@ class DataService{
   }
 
   void carregarCafes(){
-    tableStateNotifier.value = [
-      {
-        "name": "Nescafé",
-        "style": "Expresso",
-        "ibu": "01"
-      },
-      {
-        "name": "Pilão",
-        "style": "Com leite",
-        "ibu": "02"
-      },
-      {
-        "name": "Melitta", 
-        "style": "Sem açúcar", 
-        "ibu": "03"
-      }
-    ];
+    tableStateNotifier.value = {
+      "jsonObjects" : [
+        {
+          "brand": "Nescafé",
+          "style": "Expresso",
+          "price": "R\$3.00"
+        },
+        {
+          "brand": "Pilão",
+          "style": "Com leite",
+          "price": "R\$2.00"
+        },
+        {
+          "brand": "Melitta", 
+          "style": "Sem açúcar", 
+          "price": "R\$2.50"
+        }
+      ],
+      "propertyNames" : ["brand", "style", "price"],
+      "collumnNames" : ["Marca", "Estilo", "Preço"]
+    };
   }
 
   void carregarCervejas(){
-    tableStateNotifier.value = [
-      {
-        "name": "La Fin Du Monde",
-        "style": "Bock",
-        "ibu": "65"
-      },
-      {
-        "name": "Sapporo Premiume",
-        "style": "Sour Ale",
-        "ibu": "54"
-      },
-      {
-        "name": "Duvel", 
-        "style": "Pilsner", 
-        "ibu": "82"
-      }
-    ];
+    tableStateNotifier.value = {
+      "jsonObjects": [
+        {
+          "name": "La Fin Du Monde",
+          "style": "Bock",
+          "ibu": "65"
+        },
+        {
+          "name": "Sapporo Premiume",
+          "style": "Sour Ale",
+          "ibu": "54"
+        },
+        {
+          "name": "Duvel", 
+          "style": "Pilsner", 
+          "ibu": "82"
+        }
+      ], 
+      "propertyNames" : ["name","style","ibu"], 
+      "collumnNames" : ["Nome", "Estilo", "IBU"] 
+    };
   }
 
   void carregarNacoes(){
-    tableStateNotifier.value = [
-      {
-        "name": "Brasil",
-        "style": "Tá bem não",
-        "ibu": "1822"
-      },
-      {
-        "name": "Argentina",
-        "style": "Campeã da copa",
-        "ibu": "1810"
-      },
-      {
-        "name": "EUA", 
-        "style": "Primeiro mundo", 
-        "ibu": "1776"
-      }
-    ];
+    tableStateNotifier.value = {
+      "jsonObjects" : [
+        {
+          "name": "Brasil",
+          "language": "Português",
+          "currency": "Real"
+        },
+        {
+          "name": "Argentina",
+          "language": "Espanhol",
+          "currency": "Peso argentino"
+        },
+        {
+          "name": "EUA", 
+          "language": "Inglês", 
+          "currency": "Dólar"
+        }
+      ],
+      "propertyNames" : ["name", "language", "currency"],
+      "collumnNames" : ["Nome", "Idioma", "Moeda"]
+    };
   }
 }
 
@@ -91,9 +103,9 @@ class MyApp extends StatelessWidget {
           valueListenable: dataService.tableStateNotifier,
           builder:(_, value, __){
             return DataTableWidget(
-              jsonObjects: value, 
-              propertyNames: ["name","style","ibu"], 
-              columnNames: ["Nome", "Estilo", "IBU"]
+              jsonObjects: value["jsonObjects"], 
+              propertyNames: value["propertyNames"], 
+              columnNames: value["collumnNames"]
             );
           }
         ),
