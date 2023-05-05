@@ -5,7 +5,29 @@ class DataService{
   final ValueNotifier<List> tableStateNotifier = ValueNotifier([]);
 
   void carregar(index){
-    if (index == 1) carregarCervejas();
+    if (index == 0) carregarCafes();
+    else if (index == 1) carregarCervejas();
+    else if (index == 2) carregarNacoes();
+  }
+
+  void carregarCafes(){
+    tableStateNotifier.value = [
+      {
+        "name": "Nescafé",
+        "style": "Expresso",
+        "ibu": "01"
+      },
+      {
+        "name": "Pilão",
+        "style": "Com leite",
+        "ibu": "02"
+      },
+      {
+        "name": "Melitta", 
+        "style": "Sem açúcar", 
+        "ibu": "03"
+      }
+    ];
   }
 
   void carregarCervejas(){
@@ -24,6 +46,26 @@ class DataService{
         "name": "Duvel", 
         "style": "Pilsner", 
         "ibu": "82"
+      }
+    ];
+  }
+
+  void carregarNacoes(){
+    tableStateNotifier.value = [
+      {
+        "name": "Brasil",
+        "style": "Tá bem não",
+        "ibu": "1822"
+      },
+      {
+        "name": "Argentina",
+        "style": "Campeã da copa",
+        "ibu": "1810"
+      },
+      {
+        "name": "EUA", 
+        "style": "Primeiro mundo", 
+        "ibu": "1776"
       }
     ];
   }
